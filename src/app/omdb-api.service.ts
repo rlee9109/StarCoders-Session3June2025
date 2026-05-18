@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, Inject, DOCUMENT } from '@angular/core';
+
 import { Observable, map, retry } from 'rxjs';
 import { OmdbResultDetails, OmdbErrorResponse, OmdbLookup, OmdbLookupResponse, OmdbSearch, OmdbSearchResponse, OmdbSearchResult, makeOmdbRequest, convertOmdbResponse } from './types/omdb';
 

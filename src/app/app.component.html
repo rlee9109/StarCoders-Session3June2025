@@ -1,11 +1,11 @@
-<form>
+<form (submit)="$event.preventDefault(); searchComponent.submitSearch()">
   <div>
     <app-critic-score [result]="this.omdbResult()" (good-score-changed)="this.isGoodScore.set($event)"></app-critic-score>
     <app-genre [result]="this.omdbResult()" (good-genre-changed)="this.isGoodGenre.set($event)"></app-genre>
     <app-mpaa-rating [result]="this.omdbResult()" (good-rating-changed)="this.isGoodRating.set($event)"></app-mpaa-rating>
   </div>
   <div style="margin-left: 2rem">
-    <app-movie-search (result-changed)="this.omdbResult.set($event)"></app-movie-search>
+    <app-movie-search #searchComponent (result-changed)="this.omdbResult.set($event)"></app-movie-search>
   </div>
 </form>
 <hr>

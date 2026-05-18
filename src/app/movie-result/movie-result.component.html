@@ -1,6 +1,8 @@
-<div *ngIf="shouldWatch() !== null">
-  <p>{{resultText()}}</p>
-</div>
+@if (shouldWatch() !== null) {
+  <div>
+    <p>{{resultText()}}</p>
+  </div>
+}
 <div>
   <p>Movie Title: {{this.result()?.title}}</p>
   <p>Release Year: {{this.result()?.year}}</p>

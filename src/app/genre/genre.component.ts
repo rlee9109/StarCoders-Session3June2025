@@ -1,15 +1,15 @@
 import { Component, Signal, computed, effect, input, model, output, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { OmdbResultDetails } from '../types/omdb';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faXmarkCircle } from '@fortawesome/free-regular-svg-icons';
+import { form, FormField } from '@angular/forms/signals';
 
 @Component({
     selector: 'app-genre',
     templateUrl: './genre.component.html',
     styleUrls: ['./genre.component.css'],
-    imports: [FormsModule, CommonModule, FontAwesomeModule]
+    imports: [CommonModule, FontAwesomeModule, FormField]
 })
 export class GenreComponent {
   // this value is passed in from the parent component - AppComponent in app.component.ts
@@ -18,10 +18,11 @@ export class GenreComponent {
     alias: 'good-genre-changed',
   });
 
-  protected preferredGenre = model<string>('All');
+  private preferredGenreModel = signal<string>('All');
+  protected preferredGenreForm = form(this.preferredGenreModel);
   protected isGoodGenre = computed(() => {
     const genres = this.result()?.genres;
-    const preferredGenre = this.preferredGenre();
+    const preferredGenre = this.preferredGenreModel();
 
     return this.checkGenre(genres, preferredGenre);
   });

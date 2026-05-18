@@ -1,15 +1,15 @@
-import { Component, Signal, computed, effect, input, model, output } from '@angular/core';
-import { CommonModule, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Component, Signal, computed, effect, input, model, output, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
 import { faCheckCircle, faXmarkCircle } from '@fortawesome/free-regular-svg-icons';
 import { OmdbResultDetails } from '../types/omdb';
+import {form, FormField, max, maxLength, min} from '@angular/forms/signals';
 
 @Component({
     selector: 'app-critic-score',
     templateUrl: './critic-score.component.html',
     styleUrls: ['./critic-score.component.css'],
-    imports: [NgIf, FormsModule, FontAwesomeModule, CommonModule]
+    imports: [FormField, FontAwesomeModule, CommonModule]
 })
 export class CriticScoreComponent {
   // this value is passed in from the parent component - AppComponent in app.component.ts
@@ -17,13 +17,19 @@ export class CriticScoreComponent {
   public goodScoreChanged = output<boolean | null>({
     alias: 'good-score-changed',
   });
-  protected minPreferredScore = model<number>(0.0);
+  private minPreferredScoreModel = signal<number>(0.0);
+  protected minPreferredScoreForm = form(this.minPreferredScoreModel,
+    (schemaPath) => {
+      min(schemaPath, 0.0);
+      max(schemaPath, 100.0);
+    }
+  );
 
   // is good score is "computed" every time a contained signal is changed
   protected isGoodScore: Signal<boolean | null> = computed(() => {
       // good practice to put all your signals up front
       const score = this.result()?.metascore;
-      const minScore = this.minPreferredScore();
+      const minScore = this.minPreferredScoreModel();
       return this.checkScores(score, minScore);
     }
   );

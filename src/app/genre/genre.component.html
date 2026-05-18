@@ -1,27 +1,28 @@
 <div>
-  <fa-icon 
-    *ngIf="result()"
-    [ngStyle]="{'margin-right': '1rem', 'color': iconColor()}"
-    [icon]="iconStyle()"
-    [title]="`Genre: ${result()?.genres?.join(', ')}`"
-  />
+  @if (result()) {
+    <fa-icon
+      [ngStyle]="{'margin-right': '1rem', 'color': iconColor()}"
+      [icon]="iconStyle()"
+      [title]="`Genre: ${result()?.genres?.join(', ')}`"
+      />
+  }
   <span>Choose a Genre: </span>
-  <div style="margin-left: 2rem"> 
-    <input type="radio" name="preferredGenre" id="all" value="All" [(ngModel)]="preferredGenre">
+  <div style="margin-left: 2rem">
+    <input type="radio" id="all" value="All" [formField]="preferredGenreForm">
     <label for="all">
       Any
     </label>
-    <input type="radio" name="preferredGenre" value="Action" id="actionOption" [(ngModel)]="preferredGenre">
+    <input type="radio" value="Action" id="actionOption" [formField]="preferredGenreForm">
     <label for="actionOption">
       Action
     </label>
-    <input type="radio" name="preferredGenre" value="Comedy" id="comedyOption" [(ngModel)]="preferredGenre">
+    <input type="radio" value="Comedy" id="comedyOption" [formField]="preferredGenreForm">
     <label for="comedyOption">
       Comedy
     </label>
-    <input type="radio" name="preferredGenre" value="Drama" id="dramaOption" [(ngModel)]="preferredGenre">
+    <input type="radio" value="Drama" id="dramaOption" [formField]="preferredGenreForm">
     <label for="dramaOption">
       Drama
-    </label> 
+    </label>
   </div>
 </div>

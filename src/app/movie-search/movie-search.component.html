@@ -3,7 +3,7 @@
   <input
     id="movie-title"
     type="search"
-    [(ngModel)]="title"
+    [formField]="titleForm"
   >
 </div>
 <input type="submit" (click)="submitSearch()" value="Search Movies">

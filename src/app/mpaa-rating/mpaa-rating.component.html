@@ -1,11 +1,15 @@
 <div>
-  <fa-icon 
-    *ngIf="result()"
-    [ngStyle]="{'margin-right': '1rem', 'color': iconColor()}"
-    [title]="`Rated ${result()?.rated}`"
-  />
+  @if (result()) {
+    <fa-icon
+      [ngStyle]="{'margin-right': '1rem', 'color': iconColor()}"
+      [title]="`Rated ${result()?.rated}`"
+      [icon]="iconStyle()"
+      />
+  }
   <span>Choose a Maximum Rating: </span>
-  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" [(ngModel)]="preferredMaxRating">
-    <option *ngFor="let option of AVAILABLE_RATINGS" value="{{option}}">{{option}}</option>
+  <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" [formField]="preferredMaxRatingForm">
+    @for (option of AVAILABLE_RATINGS; track option) {
+      <option value="{{option}}">{{option}}</option>
+    }
   </select>
 </div>
